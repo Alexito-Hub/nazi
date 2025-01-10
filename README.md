@@ -1,0 +1,2 @@
+# nazi
+a whatsapp bot
