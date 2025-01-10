@@ -1,0 +1,30 @@
+{
+  "name": "nazi",
+  "version": "1.0.0",
+  "description": "a whatsapp bot",
+  "type": "module",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexito-Hub/nazi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexito-Hub/nazi/issues"
+  },
+  "homepage": "https://github.com/Alexito-Hub/nazi#readme",
+  "dependencies": {
+    "@al-e-dev/baileys": "github:al-e-dev/Baileys",
+    "@cacheable/node-cache": "^1.5.2",
+    "@hapi/boom": "^10.0.1",
+    "chalk": "^5.4.1",
+    "child_process": "^1.0.2",
+    "dotenv": "^16.4.7",
+    "pino": "^9.6.0",
+    "qrcode-terminal": "^0.12.0",
+    "readline": "^1.3.0",
+    "util": "^0.12.5"
+  }
+}
