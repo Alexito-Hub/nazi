@@ -27,6 +27,7 @@ import { _prototype } from "./lib/_prototype.js"
 
 import Tiktok from './scrapper/tiktok.js'
 import Facebook from './scrapper/facebook.js'
+import Pinterest from './scrapper/pinterest.js'
 
 
 import { unwatchFile, watchFile } from 'fs'
@@ -194,6 +195,20 @@ const start = async() => {
 					client.sendMessage(from, { video: { url: data.qualities[1].url }, caption: `*Título:* ${data.title}\n*Calidad:* ${data.qualities[1].quality}}` })
 				})						
 			
+				break
+			}
+			case "pinterest": {
+				if (!args.join(" ")) return client.sendMessage(from, { text: "*Por favor, proporciona un término de búsqueda para Pinterest.*" })
+				
+				const pinterest = new Pinterest()
+				await pinterest.search(args.join(" ")).then(async (data) => {
+					if (results.length > 0) {
+						const random = data[Math.floor(Math.random() * data.length)]
+						await client.sendMessage(from, { image: { url: random.image }, caption: `${random.title}` })
+					}
+				}).catch(async () => {
+					await client.sendMessage(from, { text: "No se encontraron resultados en Pinterest." })
+				})
 				break
 			}
 			case "tag": {
