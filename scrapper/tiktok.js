@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class Tiktok {
+export default class Tiktok {
     constructor() {
         this.baseUrl = 'https://tikwm.com'
     }

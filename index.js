@@ -24,6 +24,11 @@ import NodeCache from '@cacheable/node-cache'
 import readline from 'readline'
 
 import { _prototype } from "./lib/_prototype.js"
+
+import Tiktok from './scrapper/tiktok.js'
+import Facebook from './scrapper/facebook.js'
+
+
 import { unwatchFile, watchFile } from 'fs'
 import { fileURLToPath } from 'url'
 import { resolve } from 'path'
@@ -164,6 +169,33 @@ const start = async() => {
 		}
 		/** TODO */
 		switch (command) {
+			case "tiktok":
+			case "tk":
+			case "tik": {
+			    if (!args.join(" ")) return
+			    
+				const tiktok = new Tiktok()
+			    const data = await tiktok.download(args.join(" "))
+				if (data.media.type === 'image') {
+					for (const imageUrl of data.media.images) {
+						await client.sendMessage(from, { image: { url: imageUrl }, caption: data.title })
+					}
+                } else if (data.media.type === 'video') {
+                    await client.sendMessage(from, { video: { url: data.media.nowatermark.play }, caption: data.title })
+                    await client.sendMessage(from, { audio: { url: data.music.play }, mimetype: 'audio/mp4' })
+                }
+			    break
+			}
+			case "facebook": {
+				if (!args.join(" ")) return client.sendMessage(from, { text: "*Por favor, proporciona un enlace de Facebook.*" })
+				
+				const facebook = new Facebook()
+				await facebook.download(args.join(" ")).then(data => {
+					client.sendMessage(from, { video: { url: data.qualities[1].url }, caption: `*Título:* ${data.title}\n*Calidad:* ${data.qualities[1].quality}}` })
+				})						
+			
+				break
+			}
 			case "tag": {
 				if(!isOwner) return
 				if (!quoted) return
